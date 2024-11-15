@@ -1,0 +1,17 @@
+[package]
+name = "gemq"
+version = "0.1.0"
+edition = "2021"
+author = "Joan Lluis Pons <joanlluispons@gmail.com>"
+description = "Query Genbank and Embl files usin jq-like syntax"
+
+[dependencies]
+anyhow = "1.0.92"
+assert_cmd = "2.0.16"
+clap = { version = "4.5.20", features = ["derive"] }
+jaq-core = "1.5.1"
+jaq-json = "1.0.0-beta"
+nom = "7.1.3"
+predicates = "3.1.2"
+pretty_assertions = "1.4.1"
+serde_json = "1.0.132"
