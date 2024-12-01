@@ -3,12 +3,14 @@ use std::io::{self, BufRead, BufReader};
 
 use anyhow::Result;
 use clap::Parser;
+use colored_json::to_colored_json_auto;
 // use jaq_core;
 // use jaq_json::Val as JaqValue;
 // use serde_json::{json, Value};
 
 mod cli;
-mod gemparser;
+mod gbparser;
+mod genbank;
 
 fn open_file(file_path: &str) -> Result<Box<dyn BufRead>> {
     // If the file name is "-", read from stdin.
@@ -21,10 +23,15 @@ fn open_file(file_path: &str) -> Result<Box<dyn BufRead>> {
 }
 
 fn run(args: cli::Args) -> Result<()> {
-
-    let record = gemparser::GenbankRecord::try_from_file(&args.input)?;
-
     println!("{:?}", args);
+
+    let file = open_file(&args.input)?;
+
+    let gb_record = gbparser::parse_gb(file)?;
+
+    let json_str = serde_json::to_value(&gb_record).unwrap();
+    println!("{}", to_colored_json_auto(&json_str).unwrap());
+
     Ok(())
 }
 

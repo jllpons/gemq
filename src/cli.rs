@@ -11,4 +11,3 @@ pub struct Args {
     #[arg(default_value = "-", value_name = "INPUT")]
     pub input: String,
 }
-
